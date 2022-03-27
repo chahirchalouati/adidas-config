@@ -1,92 +1,92 @@
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-        exclude: "env,beans"
-
-security:
-  oauth2:
-    resource:
-      token-info-uri: http://localhost:9191/oauth/check_token
-    client:
-      client-id: gateway-service
-      client-secret: gateway-secret
----
-spring:
-  profiles:
-    active:
-      - dev
-  cloud:
-    gateway:
-      routes:
-        - id: products
-          uri: http://localhost:8081
-          predicates:
-            - Path=/products
-          filters:
-            - TokenRelay=
-        - id: authorization
-          uri: http://localhost:9191
-          predicates:
-            - Path=/auth
-          filters:
-            - TokenRelay=
-  main:
-    web-application-type: reactive
----
-spring:
-  profiles:
-    active:
-      - test
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-      default-filters:
-        - TokenRelay=
-        - SaveSession
-      routes:
-        - id: authorizations
-          uri: lb://AUTH-SERVER
-          predicates:
-            - Path=/auth/**
-          filters:
-            - TokenRelay=
-        - id: products
-          uri: lb://PRODUCTS-SERVICE
-          predicates:
-            - Path=/products/**
-          filters:
-            - TokenRelay=
-  main:
-    web-application-type: reactive
----
-spring:
-  profiles:
-    active:
-      - prod
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-      default-filters:
-        - TokenRelay=
-        - SaveSession
-      routes:
-        - id: authorizations
-          uri: lb://AUTH-SERVER
-          predicates:
-            - Path=/auth/**
-          filters:
-            - TokenRelay=
-        - id: products
-          uri: lb://PRODUCTS-SERVICE
-          predicates:
-            - Path=/products/**
-          filters:
-            - TokenRelay=
-  main:
-    web-application-type: reactive
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#        exclude: "env,beans"
+#
+#security:
+#  oauth2:
+#    resource:
+#      token-info-uri: http://localhost:9191/oauth/check_token
+#    client:
+#      client-id: gateway-service
+#      client-secret: gateway-secret
+#---
+#spring:
+#  profiles:
+#    active:
+#      - dev
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: products
+#          uri: http://localhost:8081
+#          predicates:
+#            - Path=/products
+#          filters:
+#            - TokenRelay=
+#        - id: authorization
+#          uri: http://localhost:9191
+#          predicates:
+#            - Path=/auth
+#          filters:
+#            - TokenRelay=
+#  main:
+#    web-application-type: reactive
+#---
+#spring:
+#  profiles:
+#    active:
+#      - test
+#  cloud:
+#    gateway:
+#      discovery:
+#        locator:
+#          enabled: true
+#      default-filters:
+#        - TokenRelay=
+#        - SaveSession
+#      routes:
+#        - id: authorizations
+#          uri: lb://AUTH-SERVER
+#          predicates:
+#            - Path=/auth/**
+#          filters:
+#            - TokenRelay=
+#        - id: products
+#          uri: lb://PRODUCTS-SERVICE
+#          predicates:
+#            - Path=/products/**
+#          filters:
+#            - TokenRelay=
+#  main:
+#    web-application-type: reactive
+#---
+#spring:
+#  profiles:
+#    active:
+#      - prod
+#  cloud:
+#    gateway:
+#      discovery:
+#        locator:
+#          enabled: true
+#      default-filters:
+#        - TokenRelay=
+#        - SaveSession
+#      routes:
+#        - id: authorizations
+#          uri: lb://AUTH-SERVER
+#          predicates:
+#            - Path=/auth/**
+#          filters:
+#            - TokenRelay=
+#        - id: products
+#          uri: lb://PRODUCTS-SERVICE
+#          predicates:
+#            - Path=/products/**
+#          filters:
+#            - TokenRelay=
+#  main:
+#    web-application-type: reactive
