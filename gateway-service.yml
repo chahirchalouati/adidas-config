@@ -28,7 +28,7 @@ spring:
             - Path=/auth/**
           filters:
             - TokenRelay=
-        - id: movies
+        - id: products
           uri: lb://PRODUCTS-SERVICE
           predicates:
             - Path=/products/**
@@ -48,18 +48,18 @@ spring:
         - TokenRelay=
         - SaveSession
       routes:
-        - id: files
-          uri: lb://FILES-SERVICE
-          predicates:
-            - Path=/files/**
         - id: authorizations
           uri: lb://AUTH-SERVER
           predicates:
             - Path=/auth/**
-        - id: movies
-          uri: lb://MOVIES-SERVICE
+          filters:
+            - TokenRelay=
+        - id: products
+          uri: lb://PRODUCTS-SERVICE
           predicates:
-            - Path=/movies/**
+            - Path=/products/**
+          filters:
+            - TokenRelay=
   main:
     web-application-type: reactive
 ---
@@ -74,17 +74,17 @@ spring:
         - TokenRelay=
         - SaveSession
       routes:
-        - id: files
-          uri: lb://FILES-SERVICE
-          predicates:
-            - Path=/files/**
         - id: authorizations
           uri: lb://AUTH-SERVER
           predicates:
             - Path=/auth/**
-        - id: movies
-          uri: lb://MOVIES-SERVICE
+          filters:
+            - TokenRelay=
+        - id: products
+          uri: lb://PRODUCTS-SERVICE
           predicates:
-            - Path=/movies/**
+            - Path=/products/**
+          filters:
+            - TokenRelay=
   main:
     web-application-type: reactive
