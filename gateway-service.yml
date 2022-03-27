@@ -19,9 +19,8 @@ spring:
         locator:
           enabled: true
           lowerCaseServiceId: true
-      default-filters:
-        - TokenRelay=
-        - AuthFilter
+      reactive:
+        enabled: false
       routes:
         - id: authorizations
           uri: lb://AUTH-SERVER
