@@ -16,7 +16,7 @@ eureka:
     lease-expiration-duration-in-seconds: 1
     lease-renewal-interval-in-seconds: 2
 server:
-  port: 8382
+  port: 9191
 management:
   endpoints:
     web:
