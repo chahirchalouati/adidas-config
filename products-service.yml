@@ -33,5 +33,5 @@ spring:
       auto-index-creation: true
       password: strongPassword
       username: root
-      database: files
+      database: products
       port: 27017
