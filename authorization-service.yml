@@ -4,14 +4,7 @@ management:
       exposure:
         include: '*'
         exclude: 'env,beans'
-
 spring:
   data:
     mongodb:
-      host: localhost
-      authentication-database: admin
-      auto-index-creation: true
-      password: strongPassword
-      username: root
-      database: authdb
-      port: 27017
+      uri: mongodb://root:strongPassword@localhost:27017/authdb?authSource=admin&retryWrites=true&w=majority
