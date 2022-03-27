@@ -1,18 +1,14 @@
-server:
-  port: 9999
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
 management:
   endpoints:
     web:
       exposure:
-        include: *
-        exclude: env,beans
+        include: "*"
+        exclude: "env,beans"
 ---
 spring:
-  profiles: dev
+  profiles:
+    active:
+      - dev
   cloud:
     gateway:
       routes:
@@ -32,7 +28,9 @@ spring:
     web-application-type: reactive
 ---
 spring:
-  profiles: test
+  profiles:
+    active:
+      - test
   cloud:
     gateway:
       discovery:
@@ -58,7 +56,9 @@ spring:
     web-application-type: reactive
 ---
 spring:
-  profiles: prod
+  profiles:
+    active:
+      - prod
   cloud:
     gateway:
       discovery:
