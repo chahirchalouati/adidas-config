@@ -4,6 +4,14 @@ management:
       exposure:
         include: "*"
         exclude: "env,beans"
+
+security:
+  oauth2:
+    resource:
+      token-info-uri: http://localhost:9191/oauth/check_token
+    client:
+      client-id: gateway-service
+      client-secret: gateway-secret
 ---
 spring:
   profiles:
