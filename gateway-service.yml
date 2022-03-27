@@ -20,7 +20,7 @@ spring:
           enabled: true
       default-filters:
         - TokenRelay=
-        - SaveSession
+        - AuthFilter
       routes:
         - id: authorizations
           uri: lb://AUTH-SERVER
@@ -28,12 +28,14 @@ spring:
             - Path=/auth/**
           filters:
             - TokenRelay=
+            - AuthFilter
         - id: products
           uri: lb://PRODUCTS-SERVICE
           predicates:
             - Path=/products/**
           filters:
             - TokenRelay=
+            - AuthFilter
   main:
     web-application-type: reactive
 ---
