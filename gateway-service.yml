@@ -15,27 +15,19 @@ spring:
   profiles: dev
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
-          lowerCaseServiceId: true
-      reactive:
-        enabled: false
       routes:
-        - id: authorizations
-          uri: lb://AUTH-SERVER
-          predicates:
-            - Path=/auth/**
-          filters:
-            - TokenRelay=
-            - AuthFilter
         - id: products
-          uri: lb://PRODUCTS-SERVICE
+          uri: http://localhost:8081
           predicates:
-            - Path=/products/**
+            - Path=/products
           filters:
             - TokenRelay=
-            - AuthFilter
+        - id: authorization
+          uri: http://localhost:9191
+          predicates:
+            - Path=/auth
+          filters:
+            - TokenRelay=
   main:
     web-application-type: reactive
 ---
