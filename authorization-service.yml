@@ -1,11 +1,3 @@
-security:
-  oauth2:
-    resource:
-      token-info-uri: lb://AUTH-SERVER/oauth/check_token
-    client:
-      client-id: authorization-service
-      client-secret: authorization-secret
-
 management:
   endpoints:
     web:
