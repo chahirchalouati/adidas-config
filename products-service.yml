@@ -1,7 +1,7 @@
 security:
   oauth2:
     resource:
-      token-info-uri: http://localhost:9191/oauth/check_token
+      token-info-uri: lb://AUTH-SERVER/oauth/check_token
     client:
       client-id: products-service
       client-secret: products-secret
@@ -17,6 +17,13 @@ eureka:
     lease-renewal-interval-in-seconds: 2
 server:
   port: 8382
+management:
+  endpoints:
+    web:
+      exposure:
+        include: *
+        exclude: env,beans
+
 spring:
   application:
     name: products-service
